@@ -7,11 +7,11 @@
       "48": "icon48px.png",
       "128": "icon128px.png"
   },
-  "permissions": ["activeTab", "scripting", "tabs"],
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
   "action": {
     "default_title": "Click Me"
   },
   "background": {
-    "service_worker": "script.js"
+    "service_worker": "background.js"
   }
 }
