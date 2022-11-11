@@ -9,9 +9,13 @@
   },
   "permissions": ["activeTab", "scripting", "tabs", "storage"],
   "action": {
-    "default_title": "Click Me"
+    "default_title": "Click Me",
+    "default_popup": "index.html"
   },
-  "background": {
-    "service_worker": "background.js"
-  }
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["background.js"]
+    }
+  ]
 }
