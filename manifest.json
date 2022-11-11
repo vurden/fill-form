@@ -1,0 +1,17 @@
+{
+  "name": "fill form",
+  "description": "Save forms to fill later.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "icons": {
+      "48": "icon48px.png",
+      "128": "icon128px.png"
+  },
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "action": {
+    "default_title": "Click Me"
+  },
+  "background": {
+    "service_worker": "script.js"
+  }
+}
