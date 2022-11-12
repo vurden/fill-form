@@ -18,42 +18,38 @@
 //   })
 // };
 
-// function archive(form, state) {
-//   console.log("state")
-//   console.log(state)
-//   url = Object.keys(form)[0]
-//   state.url = form.url
-//   chrome.storage.sync.set({forms: state})
-// };
 
 
 
-// function scrapeForm() {
-//   input_fields = document.getElementsByTagName("input");
+function archive(form) {
+  chrome.storage.sync.get(["saved_forms"], function(result) {
+    
+    chrome.storage.sync.set({saved_forms: state})
+    console.log(form)
+    console.log(result)
+  })
   
-//   id_value_object = {};
-//   for (const field of input_fields) {
-//     if (field.type == "hidden") continue;
-//     if (field.id == "") continue;
-//     id_value_object[field.id] = field.value;
-//   };
+};
 
-//   url = document.URL
-//   console.log(url)
-//   page_object = {}[url] = id_value_object
-
-//   return page_object;
-// };
 
 // main(); 
 
 function save() {
+  request_page_forms()
+  
+  
+  
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
-      console.log(response.farewell);
+    chrome.tabs.sendMessage(tabs[0].id, "save", function(response) {
+      archive(response)
     });
   });
 }
+
+function request_page_forms() {}
+
+
+
 
 function load() {
   console.log("load");
@@ -62,6 +58,9 @@ function load() {
 
 
 function main() {
+  try {chrome.storage.sync.get(["saved_forms"], function(result) {})}
+  catch {chrome.storage.sync.set({saved_forms: {}})}
+
   document.getElementById("save").addEventListener("click", save);
   document.getElementById("load").addEventListener("click", load);
 }

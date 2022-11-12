@@ -10,12 +10,12 @@
   "permissions": ["activeTab", "scripting", "tabs", "storage"],
   "action": {
     "default_title": "Click Me",
-    "default_popup": "index.html"
+    "default_popup": "extension.html"
   },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["background.js"]
+      "js": ["web_pages.js"]
     }
   ]
 }
