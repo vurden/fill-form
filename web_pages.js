@@ -1,7 +1,7 @@
 function scrape_page() {
-  input_fields = document.getElementsByTagName("input");
+  let input_fields = document.getElementsByTagName("input");
   
-  input_value_pairs = {};
+  let input_value_pairs = {};
   for (const field of input_fields) {
     if (field.type == "hidden") continue;
     if (field.id == "") continue;
@@ -10,6 +10,19 @@ function scrape_page() {
 
   return input_value_pairs;
 };
+
+async function load_input_values() {
+  let state = await chrome.storage.sync.get(['saved_forms'])
+  state['saved_forms']
+  
+  
+  
+  let input_fields = scrape_page()
+  for (field in input_fields) {
+    document.getElementById(field).value = 
+  }
+
+}
 
 
 
@@ -35,11 +48,13 @@ chrome.runtime.onMessage.addListener(
     // console.log(sender.tab ?
     //             "from a content script:" + sender.tab.url :
     //             "from the extension");
-    if (request == "save") {
+    if (request == "get_input_values") {
       input_value_pairs = scrape_page();
       sendResponse(input_value_pairs);
-    };
-      
+    } else if (request == "get_input_values") {
+      load_input_values();
+      // sendResponse(input_value_pairs);
+    };  
   }
 );
 
