@@ -44,11 +44,6 @@ async function save() {
 async function load() {
   let tabs = await chrome.tabs.query({active: true, currentWindow: true})
   let forms = await chrome.tabs.sendMessage(tabs[0].id, "load_input_values")
-  url_form = {}
-  url_form[tabs[0].url] = forms
-  return url_form
-
-  
 }
 
 

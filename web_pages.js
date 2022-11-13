@@ -13,15 +13,10 @@ function scrape_page() {
 
 async function load_input_values() {
   let state = await chrome.storage.sync.get(['saved_forms'])
-  state['saved_forms']
-  
-  
-  
-  let input_fields = scrape_page()
-  for (field in input_fields) {
-    document.getElementById(field).value = 
+  input_values = state['saved_forms'][document.URL]
+  for (input_id in input_values) {
+    document.getElementById(input_id).value = input_values[input_id]
   }
-
 }
 
 
@@ -51,7 +46,8 @@ chrome.runtime.onMessage.addListener(
     if (request == "get_input_values") {
       input_value_pairs = scrape_page();
       sendResponse(input_value_pairs);
-    } else if (request == "get_input_values") {
+    } else if (request == "load_input_values") {
+      console.log("request received")
       load_input_values();
       // sendResponse(input_value_pairs);
     };  
